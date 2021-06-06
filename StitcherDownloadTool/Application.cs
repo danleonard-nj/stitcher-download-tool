@@ -47,21 +47,8 @@ namespace StitcherDownloadTool
 				public async Task DownloadConcurrent()
 				{
 						List<string> episodesToDownload;
-						
-						var connectionString = "Server=(LocalDb)\\MSSQLLocalDb;Database=Dump;Trusted_Connection=True;";
-
-						using (var connection = new SqlConnection(connectionString))
-						{
-								var results = await connection.QueryAsync<string>("SELECT EpisodeName FROM dbo.Episode");
-
-								episodesToDownload = results.ToList();
-						}
-
+										
 						var allEpisodes = await _stitcherComponent.GetEpisodes("comedy-bang-bang-the-podcast");
-
-						var episodes = allEpisodes.Where(x => episodesToDownload.Contains(x.Title));
-
-						Console.WriteLine($"{episodes.Count()} episodes to redownload");
 
 						Console.WriteLine("Initiating download...");
 
